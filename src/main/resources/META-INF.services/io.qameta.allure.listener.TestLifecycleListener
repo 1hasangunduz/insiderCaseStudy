@@ -1,2 +1,2 @@
 org.testng.ITestListener
-com.insiderui.listener.Listener
+com.insider.listener.Listener
