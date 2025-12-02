@@ -1,0 +1,9 @@
+testData:
+  - params: "5"
+    expectedResult: 15
+  - params: "4"
+    expectedResult: 10
+  - params: "7"
+    expectedResult: 28
+  - params: "2"
+    expectedResult: 3
