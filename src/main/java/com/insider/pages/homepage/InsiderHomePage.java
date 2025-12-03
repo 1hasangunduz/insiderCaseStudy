@@ -125,7 +125,7 @@ public class InsiderHomePage extends BasePage {
 
     private void clickItemByText(List<WebElement> elements, String text, String logMessage) {
         for (WebElement element : elements) {
-            if (element.getText().equals(text)) {
+            if (getTextOfElement(element).equals(text)) {
                 clickElement(element, logMessage + text);
                 return;
             }
@@ -209,8 +209,8 @@ public class InsiderHomePage extends BasePage {
         for (WebElement option : options) {
             scrollToElementBlockCenter(option);
             waitMs(100);
-            Log.pass("Select filter option: " + option.getText().trim());
-            if (option.getText().trim().equals(value)) {
+            Log.pass("Select filter option: " + getTextOfElement(option).trim());
+            if (getTextOfElement(option).trim().equals(value)) {
                 clickElement(option, "Select " + filterName + ": " + value);
                 return this;
             }
@@ -248,7 +248,7 @@ public class InsiderHomePage extends BasePage {
 
         // Check_department
         for (WebElement dep : jobDepartmentList) {
-            String departmentText = dep.getText().trim();
+            String departmentText = getTextOfElement(dep).trim();
             if (departmentText.equals(department)) {
                 Log.pass("Job department matches: " + departmentText);
             } else {
@@ -258,7 +258,7 @@ public class InsiderHomePage extends BasePage {
 
         // Check_location
         for (WebElement loc : jobLocationList) {
-            String locationText = loc.getText().trim();
+            String locationText = getTextOfElement(loc).trim();
             if (locationText.equals(location)) {
                 Log.pass("Job location matches: " + locationText);
             } else {
@@ -273,7 +273,7 @@ public class InsiderHomePage extends BasePage {
     public InsiderHomePage verifyNoPositionsAvailableMessage() {
         try {
             if (noJobsFoundMessage.isDisplayed()) {
-                String msg = noJobsFoundMessage.getText().trim();
+                String msg = getTextOfElement(noJobsFoundMessage).trim();
                 if (msg.equals("No positions available.")) {
                     Log.pass("'No positions available.' message is displayed correctly.");
                 } else {

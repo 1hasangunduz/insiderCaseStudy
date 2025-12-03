@@ -1,4 +1,4 @@
-# Insider UI Automation Test Report
+# Insider UI Automation
 This document summarizes the complete UI automation coverage implemented for the Insider website, focusing on Home Page components, navigation menu functionality, Careers → Quality Assurance job filtering, negative filtering scenarios, and View Role redirection to Lever Application Form pages.
 
 ---
