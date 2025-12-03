@@ -1,8 +1,8 @@
-package com.insider.tests.qa_jobs;
+package com.insider.tests.jobs;
 
 import com.insider.base.BaseTest;
-import com.insider.pages.homepage.InsiderHomePage;
-import com.insider.utilities.StepInit;
+import com.insider.pages.jobs.JobsPage;
+import com.insider.utilities.PageInit;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
@@ -21,7 +21,7 @@ public class QaJobFilterTests extends BaseTest {
 
         navigateToUrl("prod", "careers/quality-assurance/");
 
-        StepInit.get(InsiderHomePage.class)
+        PageInit.get(JobsPage.class)
                 .goToAllJobs()
                 .redirectUrlControl(departmentUri)
                 .selectLocation(location)
@@ -40,7 +40,7 @@ public class QaJobFilterTests extends BaseTest {
 
         navigateToUrl("prod", "careers/quality-assurance/");
 
-        StepInit.get(InsiderHomePage.class)
+        PageInit.get(JobsPage.class)
                 .goToAllJobs()
                 .redirectUrlControl(departmentUri)
                 .selectLocation(location)

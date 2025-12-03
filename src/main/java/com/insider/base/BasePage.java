@@ -1,5 +1,6 @@
 package com.insider.base;
 
+import com.insider.pages.jobs.JobsPage;
 import com.insider.utilities.ConfigReader;
 import com.insider.utilities.Log;
 import com.insider.utilities.ReusableMethods;
@@ -8,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -93,6 +95,26 @@ public class BasePage extends ReusableMethods {
     @Step("Check Web Element Size")
     public String checkWebElementSize(WebElement webElement) {
         return (webElement.getSize().getHeight() + "x" + webElement.getSize().getWidth());
+    }
+
+    public void verifyElementDisplayed(WebElement element, String elementName) {
+        try {
+            scrollToElementBlockCenter(element);
+            boolean isDisplayed = isDisplayElement(element);
+            if (isDisplayed) {
+                Log.pass(elementName + " is displayed.");
+            } else {
+                Log.fail(elementName + " is NOT displayed.");
+            }
+        } catch (Exception e) {
+            Log.fail(elementName + " is NOT found on the page. Exception: " + e.getMessage());
+        }
+    }
+
+    @Step("Verify redirected URL contains: {url}")
+    public void redirectControl(String url) {
+        waitForUrlContains(url, 3);
+        Log.pass("Redirected URL: " + url);
     }
 
 

@@ -25,11 +25,8 @@ public interface WaitConditions {
     @Step("Wait up to {time} seconds for element to become clickable")
     default WebElement waitClickAbleByOfElement(WebElement element, int time) {
         try {
-            WebElement clickableElement =
-                    new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time))
-                            .until(ExpectedConditions.elementToBeClickable(element));
+            WebElement clickableElement = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time)).until(ExpectedConditions.elementToBeClickable(element));
             return clickableElement;
-
         } catch (Exception e) {
             Log.fail("Element failed to become clickable within " + time + " seconds.", e);
             return element;
@@ -46,11 +43,8 @@ public interface WaitConditions {
     @Step("Wait up to {time} seconds for element to become visible")
     default WebElement waitVisibleByLocator(WebElement element, int time) {
         try {
-            WebElement visibleElement =
-                    new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time))
-                            .until(ExpectedConditions.visibilityOf(element));
+            WebElement visibleElement = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(time)).until(ExpectedConditions.visibilityOf(element));
             return visibleElement;
-
         } catch (Exception e) {
             Log.fail("Element failed to become visible within " + time + " seconds.", e);
             return element;

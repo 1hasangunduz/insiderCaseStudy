@@ -18,7 +18,6 @@ import java.util.List;
 public class ReusableMethods implements WaitConditions {
 
     public final Configs config = Configs.getConfigs();
-    public static final int DEFAULT_WAIT_TIME = 3;
 
     // ----------------------------
     // ACTIONS
@@ -66,8 +65,9 @@ public class ReusableMethods implements WaitConditions {
         try {
             JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
             js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
+            waitMs(300);
         } catch (Exception e) {
-           Log.fail("Error while scrolling to the element.", e);
+            Log.fail("Error while scrolling to the element.", e);
         }
     }
 

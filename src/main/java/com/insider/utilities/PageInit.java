@@ -1,8 +1,8 @@
 package com.insider.utilities;
 
-public final class StepInit {
+public final class PageInit {
 
-    private StepInit() {
+    private PageInit() {
         throw new IllegalStateException("Utility class – cannot be instantiated.");
     }
 

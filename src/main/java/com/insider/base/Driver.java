@@ -65,7 +65,6 @@ public class Driver {
         }
     }
 
-
     public static void setDriverType(String driverType) {
         Driver.driverType = driverType;
     }
@@ -77,20 +76,6 @@ public class Driver {
         }
         return driver;
     }
-
-    @Step("Quit Driver")
-    public static void quit() {
-        try {
-            if (getDriver() != null) {
-                getDriver().quit();
-            }
-        } catch (Exception e) {
-            Log.error("Driver failed to quit: " + e.getMessage());
-        } finally {
-            DRIVER_TL.remove();
-        }
-    }
-
     /* ---------------------- BROWSER INITIALIZERS ---------------------- */
 
     private static WebDriver initializeChromeDriver() {

@@ -1,8 +1,8 @@
 package com.insider.tests.careers;
 
 import com.insider.base.BaseTest;
-import com.insider.pages.homepage.InsiderHomePage;
-import com.insider.utilities.StepInit;
+import com.insider.pages.careers.CareersPage;
+import com.insider.utilities.PageInit;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
@@ -20,7 +20,7 @@ public class CareersPageTests extends BaseTest {
 
         navigateToUrl();
 
-        StepInit.get(InsiderHomePage.class)
+        PageInit.get(CareersPage.class)
                 .selectNavBarTabItem(navBarTab)
                 .selectNavBarSubItem(navBarSubTab)
                 .redirectUrlControl(navBarSubTab.toLowerCase())

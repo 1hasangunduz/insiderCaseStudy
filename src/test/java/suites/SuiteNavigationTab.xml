@@ -5,8 +5,8 @@
         <classes>
             <class name="com.insider.tests.homepage.HomePageTests"/>
             <class name="com.insider.tests.careers.CareersPageTests"/>
-            <class name="com.insider.tests.qa_jobs.QaJobFilterTests"/>
-            <class name="com.insider.tests.qa_jobs.QaViewRoleTests"/>
+            <class name="com.insider.tests.jobs.QaJobFilterTests"/>
+            <class name="com.insider.tests.jobs.QaViewRoleTests"/>
         </classes>
     </test>
 </suite>

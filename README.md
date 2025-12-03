@@ -2,109 +2,14 @@
 This document summarizes the complete UI automation coverage implemented for the Insider website, focusing on Home Page components, navigation menu functionality, Careers → Quality Assurance job filtering, negative filtering scenarios, and View Role redirection to Lever Application Form pages.
 
 ---
-
-# 📌 1. Project Scope
-
-This automation covers the following workflows:
-
-- Insider Home Page UI validation
-- Navigation bar tab & sub-item validation
-- Careers Page sections validation
-- QA job filtering (positive case)
-- QA job filtering (negative case: no job results)
-- View Role button redirection to Lever job application pages
-
-The code is structured using:
-
-- **Page Object Model (POM)**
-- **Selenium WebDriver**
-- **TestNG**
-- **Allure Reporting**
-- **Custom Log Utility**
-- **Dynamic locator & filter selection**
-- **Multi-tab handling**
-
+#### For Parallel Run
+- Use XML suite : suites/SuiteNavigationTab.xml
 ---
-
-# 📌 2. Automation Architecture Overview
-
-### Key Components:
-- **BasePage**  
-  Contains shared methods: click, scroll, wait, URL validation, JS actions, switching tabs, etc.
-
-- **InsiderHomePage (Page Object)**  
-  Contains:
-    - Navigation Bar locators
-    - Home Page section locators
-    - Careers Page section locators
-    - “See all QA jobs” button
-    - Dynamic filter dropdown selectors
-    - Job card content (position, department, location)
-    - “No positions available.” message locator
-    - “View Role” button locator
-    - All verification and action methods for QA jobs
-
-- **HomePageTests (Test Class)**  
-  Contains 4 separate test cases, each representing one functional area.
-
+#### Allure Report on Terminal
+- allure generate
+- allure serve
 ---
-
-# 📌 3. Implemented Page Object Methods
-
-## ✔ Navigation
-- `selectNavBarTabItem(String tab)`
-- `selectNavBarSubItem(String subItem)`
-
-## ✔ Home Page Validation
-- `verifyHomePageSections()`
-
-Validates:
-- Header Navigation
-- Desktop Hero
-- Logo Reel
-- Case Studies
-- One Platform Infinite CX
-- Journey Section
-- Sirius AI Section
-- Tabbed Content
-- Testimonials
-- Integrations
-- CTA Banner
-- Footer
-
-## ✔ Careers Page Validation
-- `verifyCareerPageSections()`
-
-Validates:
-- Find Our Calling
-- Why Become One of Us
-- Our Locations
-- Find Job Widget
-- Life at Insider
-- Footer
-
-## ✔ QA Jobs Filtering
-- `selectLocation(String location)`
-- `selectDepartment(String department)`
-- `selectFilterOption(...)`
-- `verifyJobsListAppears()`
-- `verifyJobCardsMatchFilters(...)`
-
-## ✔ Negative Filtering Scenario
-- `verifyNoPositionsAvailableMessage()`
-
-## ✔ View Role Button Redirection
-- `clickViewRoleButtonsInLoop()`
-    - Iterates over all job cards
-    - Clicks **View Role**
-    - Switches to new tab
-    - Verifies redirect to Lever (`jobs.lever.co/useinsider/...`)
-    - Closes new tab
-    - Returns to original tab
-
----
-
-# 📌 4. Test Case Summary
+## 📌 1. Test Case Summary
 
 ## ✅ **Test Case 1 — Verify Home Page Sections**
 **Test Method:** `verifyNavigationHomePage_Case_1`  
@@ -190,7 +95,7 @@ All View Role buttons redirect to valid Lever application pages.
 
 ---
 
-# 📌 5. Coverage Confirmation Against Requirements
+## 📌 2. Coverage Confirmation Against Requirements
 
 | Requirement | Covered? | Details |
 |------------|----------|---------|
@@ -207,17 +112,118 @@ All requirements are fully automated.
 
 ---
 
-# 📌 6. Additional Notes & Improvements
+## 📌 3. Technology Stack and Architecture
 
-- Framework successfully supports multi-tab handling.
+- **Language:** Java 17
+- **UI Testing:** Selenium WebDriver
+- **Test Runner:** TestNG (methods-driver seviyesinde paralel koşum)
+- **Reporting:** Allure Report
+- **Configuration Management:** Owner (`Configs` + `config.properties`)
+- **Architecture:** Page Object Model (POM)
+- **Logging:** Log4j2 + custom `Log` utility
+- **Driver Management:** `ThreadLocal<WebDriver>` + `Driver` sınıfı
+
+---
+## 📌 4. Project Scope
+
+```text
+src
+ ├─ main/java/com/insider
+ │   ├─ base/         
+ │   │    • BasePage       → Tüm page'lerin miras aldığı ana sınıf. 
+ │   │                       İçerik: navigation, cookies, verify, waits, scroll, URL control.
+ │   │    • BaseTest       → TestNG @BeforeMethod/@AfterMethod + driver lifecycle.
+ │   │    • Driver         → ThreadLocal driver, browser initializer, headless support, screenshot.
+ │   │
+ │   ├─ pages/
+ │   │    • HomePage       → Home UI element locators + homepage validation methods.
+ │   │    • CareersPage    → Navigation bar actions + Careers page sections.
+ │   │    • JobsPage       → Filters, job list validation, View Role actions.
+ │   │
+ │   ├─ utilities/
+ │   │    • Log            → Custom pass(), fail(), warning() + Allure step logging.
+ │   │    • ReusableMethods→ scroll, click, hover, wait, tab switching, JS actions.
+ │   │    • WaitConditions → Visible/clickable waits, page load waits, URL wait methods.
+ │   │    • PageInit       → Reflection-based Page Object factory.
+ │   │    • ConfigReader   → Property reader for config.properties.
+ │   │
+ │   └─ listener/
+ │        • Listener       → Test lifecycle events, screenshot on failure, logging.
+ │
+ └─ test/java/com/insider/tests
+      ├─ homepage/
+      │     • HomePageTests         → Home page section validation.
+      │
+      ├─ careers/
+      │     • CareersPageTests      → Company → Careers navigation + section validation.
+      │
+      └─ jobs/
+            • QaJobFilterTests      → Positive + negative filtering scenarios.
+            • QaViewRoleTests       → View Role redirection validation.
+
+```
+---
+### Validates:
+- Header Navigation
+- Desktop Hero
+- Logo Reel
+- Case Studies
+- One Platform Infinite CX
+- Journey Section
+- Sirius AI Section
+- Tabbed Content
+- Testimonials
+- Integrations
+- CTA Banner
+- Footer
+
+##  Careers Page Validation
+- `verifyCareerPageSections()`
+
+### Validates:
+- Find Our Calling
+- Why Become One of Us
+- Our Locations
+- Find Job Widget
+- Life at Insider
+- Footer
+
+##  QA Jobs Filtering
+- `selectLocation(String location)`
+- `selectDepartment(String department)`
+- `selectFilterOption(...)`
+- `verifyJobsListAppears()`
+- `verifyJobCardsMatchFilters(...)`
+
+##  Negative Filtering Scenario
+- `verifyNoPositionsAvailableMessage()`
+
+##  View Role Button Redirection
+- `clickViewRoleButtonsInLoop()`
+    - Iterates over all job cards
+    - Clicks **View Role**
+    - Switches to new tab
+    - Verifies redirect to Lever (`jobs.lever.co/useinsider/...`)
+    - Closes new tab
+    - Returns to original tab
+
+---
+
+### 📌 6. Additional Notes & Improvements
+
+ Framework successfully supports multi-tab handling.
 - Dropdown selection is fully dynamic.
 - Page Object locators are stable and scalable.
 - All test flows include descriptive Allure @Steps for rich reporting.
 - Logging uses `Log.pass()` and `Log.fail()` consistently.
-
+- Thread-safe driver design ensures predictable behavior during concurrent executions.
+- Allure reporting includes full step logs and screenshots for maximum traceability.
+- Custom utility methods reduce code duplication and increase framework consistency.
+- Environment-driven configuration enables flexible test execution across multiple platforms.
+- Element locators and interactions are optimized to reduce test flakiness.
+- Framework is structured for easy expansion to new Insider modules or job domains.
 ---
-
-# 📌 7. Conclusion
+### 📌 7. Conclusion
 
 This full automation suite provides reliable coverage for Insider’s Home Page, Careers Page, and QA Hiring workflow, validating:
 
@@ -229,3 +235,4 @@ This full automation suite provides reliable coverage for Insider’s Home Page,
 
 All scenarios are POM-structured, scalable, and aligned with best QA automation practices.
 
+---
